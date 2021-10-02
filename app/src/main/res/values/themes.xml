@@ -1,0 +1,81 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Calculadora" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/purple_500</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/teal_200</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="WhiteButton" parent="Widget.AppCompat.Button"
+        >
+        <item name="android:background" >
+            @drawable/flat_white_button
+        </item>
+
+        <item name="android:textSize">
+            40sp
+        </item>
+
+        <item name="android:textColor">
+            @color/blue
+        </item>
+
+    </style>
+
+    <style name="TextoNormal" parent="Widget.AppCompat.TextView">
+        <item name="android:textSize">36sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="fontFamily">@font/ws</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="TextoNegrito" parent="TextoNormal">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">52sp</item>
+    </style>
+
+    <style name="BlueButton" parent="Widget.AppCompat.Button"
+        >
+        <item name="fontFamily">@font/ws</item>
+        <item name="android:background">
+            @drawable/flat_blue_button
+        </item>
+
+        <item name="android:textSize">
+            40sp
+        </item>
+
+        <item name="android:textColor">
+            @color/white
+        </item>
+
+        <item name="textAllCaps">
+            false
+        </item>
+
+    </style>
+
+    <style name="GreenButton" parent="Widget.AppCompat.Button">
+
+        <item name="android:background">
+            @drawable/flat_green_button
+        </item>
+
+        <item name="android:textSize">
+            40sp
+        </item>
+
+        <item name="android:textColor">
+            @color/white
+        </item>
+
+    </style>
+</resources>
