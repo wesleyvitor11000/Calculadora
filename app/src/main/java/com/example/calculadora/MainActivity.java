@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             newTemp = true;
         }
 
-        if(!num && termos<=1){
+        if(!num && termos<=1 && valorTemporario.isEmpty()){
             if(!caractere.equals("-")){
                 return;
             }
