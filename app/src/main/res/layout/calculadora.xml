@@ -195,7 +195,7 @@
         app:layout_constraintTop_toTopOf="@id/one_button"
         app:layout_constraintBottom_toBottomOf="@id/one_button"
         app:layout_constraintLeft_toRightOf="@id/two_button"
-        app:layout_constraintRight_toLeftOf="@+id/plus_button"
+        app:layout_constraintRight_toLeftOf="@+id/sum_button"
 
         style="@style/WhiteButton"
         android:text='3'
@@ -204,7 +204,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
 
-        android:id="@+id/plus_button"
+        android:id="@+id/sum_button"
 
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -266,7 +266,7 @@
         app:layout_constraintTop_toTopOf="@id/four_button"
         app:layout_constraintBottom_toBottomOf="@id/four_button"
         app:layout_constraintLeft_toRightOf="@id/five_button"
-        app:layout_constraintRight_toLeftOf="@id/minus_button"
+        app:layout_constraintRight_toLeftOf="@id/subtract_button"
 
 
         android:text='6'
@@ -276,7 +276,7 @@
 
     <androidx.appcompat.widget.AppCompatButton
 
-        android:id="@+id/minus_button"
+        android:id="@+id/subtract_button"
 
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -370,7 +370,7 @@
 
         app:layout_constraintTop_toTopOf="@id/buttons_layout"
         app:layout_constraintBottom_toTopOf="@id/seven_button"
-        app:layout_constraintLeft_toLeftOf="@id/plus_button"
+        app:layout_constraintLeft_toLeftOf="@id/sum_button"
         app:layout_constraintRight_toRightOf="parent"
 
         style="@style/BlueButton"

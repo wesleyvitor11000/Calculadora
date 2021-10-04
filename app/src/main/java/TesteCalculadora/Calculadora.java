@@ -5,7 +5,7 @@ public class Calculadora{
 
     private class Operacao{
 
-        private int operador; // 1 = +; 2 = -, 3 = * e 4 = /
+        private int operador; // 1: +; 2: -, 3: * e 4: /
         private float valor;
 
         public Operacao(int opr, float val) {
@@ -25,12 +25,60 @@ public class Calculadora{
 
     }
 
-    public float calcularResultado() {
+    public void valorTemporario(int op, String valorTemp, boolean newTemp){
+        float valor = 0;
+
+        try{
+            valor = Float.parseFloat(valorTemp);
+        }catch(Exception e){}
+
+        if(valorTemp.isEmpty()) valor=0;
+
+        if(newTemp){
+            Operacao opr = new Operacao(op, valor);
+            operacoes.add(opr);
+        }else{
+            operacoes.get(operacoes.size()-1).valor = valor;
+        }
+
+    }
+
+    public void deletarTemporario(){
+
+        System.out.println("Entrou em deletar TEMP, length: " + operacoes.size());
+
+        if(operacoes.size()==0) {
+            return;
+        }
+
+        System.out.println("Apagando valor: " + operacoes.get(operacoes.size()-1).valor);
+        operacoes.remove(operacoes.size()-1);
+    }
+
+    public float getUltimoValor(){
+        if(operacoes.isEmpty()) {
+            return 0;
+        }
+        return operacoes.get(operacoes.size()-1).valor;
+    }
+
+    public int getUltimoOperador(){
+        if(operacoes.isEmpty()){
+            return 1;
+        }
+        return operacoes.get(operacoes.size()-1).operador;
+    }
+
+    public float calcularResultado() throws ArithmeticException{
 
         ArrayList<Float> tempRes = new ArrayList<Float>();
         float result = 0;
 
+        tempRes.clear();
+
         for(Operacao op: operacoes) {
+
+            System.out.println(op.operador + " ---->>> " + op.valor);
 
             switch(op.operador) {
 
@@ -39,21 +87,21 @@ public class Calculadora{
                     break;
                 case 2:
                     tempRes.add(-op.valor);
+                    break;
 
                 case 3:
-                    float tempVal = tempRes.get(tempRes.size()-1);
+                    int length = tempRes.size();
+                    tempRes.set(length-1, tempRes.get(length-1)*op.valor);
 
-                    tempRes.remove(tempRes.size()-1);
-                    tempRes.add(tempVal*op.valor);
                     break;
 
                 case 4:
+                    if(op.valor == 0) throw new ArithmeticException();
 
-                    float tempVal2 = tempRes.get(tempRes.size()-1);
+                    int length2 = tempRes.size();
+                    tempRes.set(length2-1, tempRes.get(length2-1)/op.valor);
 
-                    tempRes.remove(tempRes.size()-1);
-                    tempRes.add(tempVal2/op.valor);
-
+                    break;
             }
 
         }
@@ -64,61 +112,5 @@ public class Calculadora{
 
         return result;
     }
-
-    public float calcularResultadoOld () {
-
-        float result = operacoes.get(0).valor;
-
-        ArrayList<Operacao> mul_e_div = new ArrayList<Operacao>();
-        ArrayList<Operacao> sum_e_sub = new ArrayList<Operacao>();
-
-        //separa divisão e multiplicação dos demais
-        for(Operacao op : operacoes) {
-            if(op.operador == 3 || op.operador == 4) {
-                mul_e_div.add(op);
-            }
-        }
-
-
-        //separando array de somas e subtracoes
-        for(Operacao op : operacoes) {
-            if(op.operador == 1 || op.operador == 2) {
-                sum_e_sub.add(op);
-            }
-        }
-
-
-        //executando operacoes de div e mult:
-        for(Operacao op: mul_e_div) {
-            if(op.operador == 3) {
-                result *= op.valor;
-            }else {
-                result /= op.valor; ////exceções valor = 0
-            }
-        }
-
-
-        //executando operacoes de soma e sub:
-        for(Operacao op: sum_e_sub) {
-            if(op.operador == 1) {
-                result += op.valor;
-            }else {
-                result -= op.valor; ////exceções valor = 0
-            }
-        }
-
-
-        return result;
-    }
-
-    ///*************************************************///
-    private float multiplicar(float a, float b) {
-        return a*b;
-    }
-
-    private float dividir(float a, float b) {
-        return a/b; ///inserir exceção b = 0********************************************
-    }
-
 
 }
