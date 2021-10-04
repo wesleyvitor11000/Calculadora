@@ -174,7 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void inserirCaractereOperacao(String caractere, boolean num){
 
-        if(!valorTemporario.isEmpty() && Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".")){///ou ,*********************************
+        if((!valorTemporario.isEmpty() && Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".")) ||
+                (termos>1 && valorTemporario.isEmpty() && !num)){///ou ,*********************************
                 deleteCaractere();
         }
 
@@ -182,6 +183,12 @@ public class MainActivity extends AppCompatActivity {
 
         if(valorTemporario.isEmpty() || deletado) {
             newTemp = true;
+        }
+
+        if(!num && termos<=1){
+            if(!caractere.equals("-")){
+                return;
+            }
         }
 
         if(num){

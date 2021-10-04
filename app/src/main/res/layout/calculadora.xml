@@ -6,6 +6,9 @@
 
     android:background="@color/white">
 
+
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/result_screen"
@@ -36,22 +39,34 @@
         app:layout_constraintTop_toBottomOf="@id/result_screen"
         app:layout_constraintVertical_weight="2" />
 
-    <TextView
-        android:id="@+id/tv_operations"
-
+    <HorizontalScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:overScrollMode="never"
+
 
         app:layout_constraintBottom_toBottomOf="@id/result_screen"
         app:layout_constraintRight_toRightOf="parent"
 
-
-        android:text=""
-        android:textAppearance="@style/TextoNormal"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="25dp"
 
-        />
+        >
+
+        <TextView
+
+            android:id="@+id/tv_operations"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text=""
+            android:textAppearance="@style/TextoNormal"
+
+
+            />
+    </HorizontalScrollView>
+
 
     <TextView
         android:id="@+id/tv_result"
