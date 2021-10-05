@@ -26,6 +26,9 @@ public class Calculadora{
     }
 
     public void valorTemporario(int op, String valorTemp, boolean newTemp){
+
+        System.out.println("ATUALIZANDO TEMPORARIO ( OP = " + op + " VALOR = " + valorTemp + " NEW? = " + newTemp);
+
         float valor = 0;
 
         try{
@@ -38,6 +41,7 @@ public class Calculadora{
             Operacao opr = new Operacao(op, valor);
             operacoes.add(opr);
         }else{
+            operacoes.get(operacoes.size()-1).operador = op;
             operacoes.get(operacoes.size()-1).valor = valor;
         }
 
@@ -45,13 +49,19 @@ public class Calculadora{
 
     public void deletarTemporario(){
 
-        System.out.println("Entrou em deletar TEMP, length: " + operacoes.size());
+        try {
+            System.out.println("Entrou em deletar temporário:\nsize: " +
+                    operacoes.size() +
+                    "\nvalor removido: " + operacoes.get(operacoes.size() - 1).valor);
 
-        if(operacoes.size()==0) {
+        }catch(Exception e){
+        System.out.println("Okay, erro esperado");
+        }
+
+        if(operacoes.size()<=0) {
             return;
         }
 
-        System.out.println("Apagando valor: " + operacoes.get(operacoes.size()-1).valor);
         operacoes.remove(operacoes.size()-1);
     }
 

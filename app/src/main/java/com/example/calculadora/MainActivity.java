@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void inserirCaractereOperacao(String caractere, boolean num){
 
+        System.out.println("INSERINDO CARACTERE (CARACTERE = " + caractere + " numero?: " + num);
+
         if((!valorTemporario.isEmpty() && Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".")) ||
                 (termos>1 && valorTemporario.isEmpty() && !num)){///ou ,*********************************
                 deleteCaractere();
@@ -181,13 +183,17 @@ public class MainActivity extends AppCompatActivity {
 
         boolean newTemp = false;
 
-        if(valorTemporario.isEmpty() || deletado) {
+        if(valorTemporario.isEmpty()) { //deletado?
             newTemp = true;
         }
 
+        System.out.println("TERMOS  ===== " + termos + "    VALOR É NULO? === " + valorTemporario.isEmpty() + " VALOR ===" + valorTemporario);
+
         if(!num && termos<=1 && valorTemporario.isEmpty()){
-            if(!caractere.equals("-")){
-                return;
+            System.out.println("ENTROU NA PRIMEIRA COMPARAÇÃO");
+            if(!caractere.equals("-")) {
+                System.out.println("N É VIRGULA");
+                return;///ultima alteracao
             }
         }
 
@@ -200,6 +206,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void inserirNoValorTemporario(String num, boolean newTemp){
+
+        ///O ERRO DE N ATUALIZAR O RESULTADO QUANDO APAGA ESTÁ POR AQUI, EU ACHO
+
+        System.out.println("INSERINDO VALOR TEMPORÁRIO (NUM = " + num + " newTemp = " + newTemp);
 
         valorTemporario = valorTemporario.concat(num);
         calculadora.valorTemporario(ultimoOperador, valorTemporario, newTemp);
@@ -221,6 +231,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String trocarPorVirgula(String resultado, boolean mudarApenasOperacao){
+
+        System.out.println("ALTERANDO PONTOS PARA VÍRGULAS(");
+        System.out.println("VALORES RECEBIDOS: \n RESULTADO: " + resultado + "\n tempOP: " + tempOperacao + " )");
+
+        System.out.println("ENQUANTO VALOR TEMPORÁRIO: " + valorTemporario);
+
 
         tempOperacao = tempOperacao.replace(".", ",");
         TVOperacoes.setText(tempOperacao);
@@ -255,27 +271,37 @@ public class MainActivity extends AppCompatActivity {
 
     public void deleteCaractere(){
 
-        System.out.println("TERMOS ====== " + termos);
-        System.out.println("temp valor:" + valorTemporario.length() + " isempty: " + valorTemporario.isEmpty());
-
-        try {
-            System.out.println("DELETANDO = " + tempOperacao.charAt(tempOperacao.length()-1));
-        }catch(Exception e){
-            System.out.println("erro ao remover de valor nulo");
-        }
+        System.out.println("DELETANDO CARACTERE.");
 
         if(valorTemporario.isEmpty()){
 
             System.out.println("DELETE TIPO 1");
 
             if(termos <= 1){
-                System.out.println("ERRO TERMO < 1");
+                ultimoOperador = 1;
+                calculadora.deletarTemporario();
+                System.out.println("ERRO TERMO <= 1");
                 return;
             }
 
             termos--;
 
-            valorTemporario = String.valueOf(calculadora.getUltimoValor());
+            float ultimoValor = calculadora.getUltimoValor();
+            int ultimoValorInt = (int)ultimoValor;
+
+
+            //o valor retornado para string, msm quando inteiro, continha o ".0" ao final, o q, juntando-se ao fato
+            //de que a main trabalha com strings, faz com q os caracteres n sejam removidos corretamente
+            if((ultimoValor - ultimoValorInt) == 0){
+                valorTemporario = String.valueOf(ultimoValorInt);
+            }else{
+                valorTemporario = String.valueOf(ultimoValor);
+            }
+
+            if(valorTemporario.equals("0")){
+                valorTemporario = "";
+            }
+
             ultimoOperador = calculadora.getUltimoOperador();
 
             if(tempOperacao.isEmpty()){return;}
@@ -286,7 +312,11 @@ public class MainActivity extends AppCompatActivity {
         }else {
             System.out.println("DELETE TIPO 2");
 
+            System.out.println("VALOR TEMPORARIO ANTES DO DELETE: " + valorTemporario);
+
             valorTemporario = valorTemporario.substring(0, valorTemporario.length() - 1);
+
+            System.out.println("Delete tipo 2, valor temporario : " + valorTemporario + ", termos : " + termos);
 
             if(!tempOperacao.isEmpty()){
                 tempOperacao = tempOperacao.substring(0, tempOperacao.length() - 1);
@@ -298,14 +328,20 @@ public class MainActivity extends AppCompatActivity {
                 calculadora.deletarTemporario();
                 limparResultado();
                 deletado = true;
-            }else{
+            }
+            else{
                 inserirNoValorTemporario("", false);
-                atualizarResultado();
+
+                if(termos > 1) {
+                    atualizarResultado();
+                }else{
+                    limparResultado();
+                }
             }
 
         }
 
-        if(termos <= 1) limparResultado();
+        //if(termos <= 1) limparResultado();
     }
 
 }
