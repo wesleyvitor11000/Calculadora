@@ -106,7 +106,9 @@ public class Calculadora{
                     break;
 
                 case 4:
-                    if(op.valor == 0) throw new ArithmeticException();
+                    if(op.valor == 0){
+                        throw new ArithmeticException();
+                    }
 
                     int length2 = tempRes.size();
                     tempRes.set(length2-1, tempRes.get(length2-1)/op.valor);

@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     String tempOperacao = "";
     String valorTemporario = "";
     int ultimoOperador = 1;
+    int proxOperador = 0;
     int termos = 1; ////////////////////0000000
     boolean deletado = false;
 
@@ -124,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
         //FUNÇÕES DOS BOTÕES DE OPERAÇÕES
         sumB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {inserirCaractereOperacao("+", false);
+            public void onClick(View view) {
+                proxOperador = 1;
+                inserirCaractereOperacao("+", false);
                 limparResultado();
                 termos++;
                 ultimoOperador = 1;
@@ -134,7 +137,9 @@ public class MainActivity extends AppCompatActivity {
 
         subB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {inserirCaractereOperacao("-", false);
+            public void onClick(View view) {
+                proxOperador = 2;
+                inserirCaractereOperacao("-", false);
                 limparResultado();
                 termos++;
                 ultimoOperador = 2;
@@ -144,7 +149,9 @@ public class MainActivity extends AppCompatActivity {
 
         multpB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {inserirCaractereOperacao("x", false);
+            public void onClick(View view) {
+                proxOperador = 3;
+                inserirCaractereOperacao("x", false);
                 limparResultado();
                 termos++;
                 ultimoOperador = 3;
@@ -154,7 +161,9 @@ public class MainActivity extends AppCompatActivity {
 
         divB.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {inserirCaractereOperacao("÷", false);
+            public void onClick(View view) {
+                proxOperador = 4;
+                inserirCaractereOperacao("÷", false);
                 limparResultado();
                 termos++;
                 ultimoOperador = 4;
@@ -176,9 +185,16 @@ public class MainActivity extends AppCompatActivity {
 
         System.out.println("INSERINDO CARACTERE (CARACTERE = " + caractere + " numero?: " + num);
 
-        if((!valorTemporario.isEmpty() && Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".")) ||
-                (termos>1 && valorTemporario.isEmpty() && !num)){///ou ,*********************************
+        if(valorTemporario.isEmpty()){
+            if(valorTemporario.isEmpty() && !num){
                 deleteCaractere();
+            }
+        }else{
+            if(Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".")){
+                if((ultimoOperador!=3 && ultimoOperador!=4 && proxOperador!= 3 && proxOperador!=4) || num){
+                    deleteCaractere();
+                }
+            }
         }
 
         boolean newTemp = false;
@@ -254,8 +270,9 @@ public class MainActivity extends AppCompatActivity {
         String resultadoText = "";
         try {
             resultadoText = String.valueOf(calculadora.calcularResultado());
-        }catch(ArithmeticException e){
-            limparResultado();
+        }catch(Exception e){
+            TVResultado.setText("Impossível");
+            return;
         }
 
         float resultadoRacional = Float.parseFloat(resultadoText);
@@ -286,8 +303,16 @@ public class MainActivity extends AppCompatActivity {
 
             termos--;
 
+            boolean nuloValido = false;
+
             float ultimoValor = calculadora.getUltimoValor();
             int ultimoValorInt = (int)ultimoValor;
+
+            int ultimoOperadorTemp = calculadora.getUltimoOperador();
+
+            if(ultimoOperadorTemp == 3 || ultimoOperadorTemp == 4 || ultimoOperador == 3 || ultimoOperador == 4){
+                nuloValido = true;
+            }
 
 
             //o valor retornado para string, msm quando inteiro, continha o ".0" ao final, o q, juntando-se ao fato
@@ -298,11 +323,11 @@ public class MainActivity extends AppCompatActivity {
                 valorTemporario = String.valueOf(ultimoValor);
             }
 
-            if(valorTemporario.equals("0")){
+            if(!nuloValido && ultimoValor == 0){
                 valorTemporario = "";
             }
 
-            ultimoOperador = calculadora.getUltimoOperador();
+
 
             if(tempOperacao.isEmpty()){return;}
 
