@@ -343,17 +343,16 @@ public class MainActivity extends AppCompatActivity {
 
             termos--;
 
-            boolean nuloValido = false;
+          //  boolean nuloValido = false;
 
             float ultimoValor = calculadora.getUltimoValor();
             int ultimoValorInt = (int)ultimoValor;
 
             int ultimoOperadorTemp = calculadora.getUltimoOperador();
 
-            if(ultimoOperadorTemp == 3 || ultimoOperadorTemp == 4 || ultimoOperador == 3 || ultimoOperador == 4){
+           /* if(ultimoOperadorTemp == 3 || ultimoOperadorTemp == 4 || ultimoOperador == 3 || ultimoOperador == 4){
                 nuloValido = true;
-            }
-
+            }*/
 
             //o valor retornado para string, msm quando inteiro, continha o ".0" ao final, o q, juntando-se ao fato
             //de que a main trabalha com strings, faz com q os caracteres n sejam removidos corretamente
@@ -363,7 +362,7 @@ public class MainActivity extends AppCompatActivity {
                 valorTemporario = String.valueOf(ultimoValor);
             }
 
-            if(!nuloValido && ultimoValor == 0){
+            if(ultimoValor == 0){//!nulovalido
                 valorTemporario = "";
             }
 
