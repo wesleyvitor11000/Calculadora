@@ -180,6 +180,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        delB.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                limparTudo();
+                return false;
+            }
+        });
+
         eqlB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
