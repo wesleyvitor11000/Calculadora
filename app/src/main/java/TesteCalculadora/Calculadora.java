@@ -17,6 +17,10 @@ public class Calculadora{
 
     private ArrayList<Operacao> operacoes = new ArrayList<Operacao>();
 
+    public void limparTudo(){
+        operacoes.clear();
+    }
+
     public void addOperacao (int opd, float val) {
 
         Operacao op = new Operacao(opd, val);

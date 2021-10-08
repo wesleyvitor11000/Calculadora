@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         //BOTÕES DE FUNÇÕES
         AppCompatImageButton delB = findViewById(R.id.del_button);
+        AppCompatButton eqlB = findViewById(R.id.equal_button);
 
 
 
@@ -179,6 +180,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        eqlB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String tempResult = limparTudo();
+                inserirCaractereOperacao(tempResult, true);
+            }
+        });
+
+
+
+    }
+
+    private String limparTudo(){
+
+        String tempResult = atualizarResultado() ;
+
+        limparValorTemporario();
+        limparResultado();
+
+        tempOperacao = "";
+        ultimoOperador = 1;
+        proxOperador = 0;
+        termos = 1;
+        deletado = false;
+
+        calculadora.limparTudo();
+        TVOperacoes.setText("");
+
+        return tempResult;
+
     }
 
     private void inserirCaractereOperacao(String caractere, boolean num){
@@ -190,10 +221,8 @@ public class MainActivity extends AppCompatActivity {
                 deleteCaractere();
             }
         }else{
-            if(Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".")){
-                if((ultimoOperador!=3 && ultimoOperador!=4 && proxOperador!= 3 && proxOperador!=4) || num){
-                    deleteCaractere();
-                }
+            if(Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".") && num){
+                 deleteCaractere();
             }
         }
 
@@ -208,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
         if(!num && termos<=1 && valorTemporario.isEmpty()){
             System.out.println("ENTROU NA PRIMEIRA COMPARAÇÃO");
             if(!caractere.equals("-")) {
-                System.out.println("N É VIRGULA");
+                System.out.println("N É sinal de menos");
                 return;///ultima alteracao
             }
         }
@@ -266,13 +295,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void atualizarResultado() {
+    private String atualizarResultado() {
         String resultadoText = "";
         try {
             resultadoText = String.valueOf(calculadora.calcularResultado());
         }catch(Exception e){
-            TVResultado.setText("Impossível");
-            return;
+            TVResultado.setText("Erro");
+            return "";
         }
 
         float resultadoRacional = Float.parseFloat(resultadoText);
@@ -281,8 +310,11 @@ public class MainActivity extends AppCompatActivity {
         if((resultadoRacional - resultadoInteiro)!=0){
             resultadoText = trocarPorVirgula(resultadoText, false);
             TVResultado.setText(resultadoText);
+            return resultadoText;
         }else{
-            TVResultado.setText(String.valueOf(resultadoInteiro));
+            resultadoText  = String.valueOf(resultadoInteiro);
+            TVResultado.setText(resultadoText);
+            return resultadoText;
         }
     }
 
