@@ -308,8 +308,8 @@ public class MainActivity extends AppCompatActivity {
         int resultadoInteiro = (int)resultadoRacional;
 
         if((resultadoRacional - resultadoInteiro)!=0){
-            resultadoText = trocarPorVirgula(resultadoText, false);
-            TVResultado.setText(resultadoText);
+            String resultadoTextTemp = trocarPorVirgula(resultadoText, false);
+            TVResultado.setText(resultadoTextTemp);
             return resultadoText;
         }else{
             resultadoText  = String.valueOf(resultadoInteiro);
