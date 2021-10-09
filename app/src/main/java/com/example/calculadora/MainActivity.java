@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         delB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteCaractere();
+                deleteCaractere(true);
             }
         });
 
@@ -206,10 +206,10 @@ public class MainActivity extends AppCompatActivity {
 
         String tempResult = atualizarResultado() ;
 
-        limparValorTemporario();
+        valorTemporario = "0";
         limparResultado();
 
-        tempOperacao = "";
+        tempOperacao = "0";
         ultimoOperador = 1;
         proxOperador = 0;
         termos = 1;
@@ -228,11 +228,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(valorTemporario.isEmpty()){
             if(valorTemporario.isEmpty() && !num){
-                deleteCaractere();
+                deleteCaractere(false);
             }
         }else{
             if(Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".") && num){
-                 deleteCaractere();
+                 deleteCaractere(false);
             }
         }
 
@@ -326,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void deleteCaractere(){
+    public void deleteCaractere(boolean recolocarZero){
 
         System.out.println("DELETANDO CARACTERE.");
 
@@ -403,11 +403,10 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-
-        if(valorTemporario.isEmpty() && termos <= 1){
+        System.out.println("TEMPORARIO NULO = " + valorTemporario.isEmpty());
+        if(valorTemporario.isEmpty() && termos <= 1 && recolocarZero){
                 limparTudo();
                 inserirNoValorTemporario("", true);
-                TVOperacoes.setText(tempOperacao);
         }
 
 
