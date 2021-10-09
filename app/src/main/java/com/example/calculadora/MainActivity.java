@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import TesteCalculadora.Calculadora;
+import BaseCalculadora.Calculadora;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
     TextView TVResultado;
 
     //TEMPORARIAS
-    String tempOperacao = "";
-    String valorTemporario = "";
+    String tempOperacao = "0";
+    String valorTemporario = "0";
     int ultimoOperador = 1;
     int proxOperador = 0;
     int termos = 1; ////////////////////0000000
@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         TVOperacoes = findViewById(R.id.tv_operations);
         TVResultado = findViewById(R.id.tv_result);
+
+        TVOperacoes.setText("0");
 
         //BOTÕES NUMÉRICOS:
         AppCompatButton zeroB = findViewById(R.id.zero_button);
@@ -246,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("ENTROU NA PRIMEIRA COMPARAÇÃO");
             if(!caractere.equals("-")) {
                 System.out.println("N É sinal de menos");
+                ultimoOperador = 1;
                 return;///ultima alteracao
             }
         }
@@ -260,13 +263,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void inserirNoValorTemporario(String num, boolean newTemp){
 
-        ///O ERRO DE N ATUALIZAR O RESULTADO QUANDO APAGA ESTÁ POR AQUI, EU ACHO
-
         System.out.println("INSERINDO VALOR TEMPORÁRIO (NUM = " + num + " newTemp = " + newTemp);
 
         valorTemporario = valorTemporario.concat(num);
         calculadora.valorTemporario(ultimoOperador, valorTemporario, newTemp);
-        deletado = false;
 
         if(termos>1){
             atualizarResultado();
@@ -386,12 +386,11 @@ public class MainActivity extends AppCompatActivity {
                 tempOperacao = tempOperacao.substring(0, tempOperacao.length() - 1);
             }
 
-            TVOperacoes.setText(tempOperacao);
+
 
             if(valorTemporario.isEmpty()) {
                 calculadora.deletarTemporario();
                 limparResultado();
-                deletado = true;
             }
             else{
                 inserirNoValorTemporario("", false);
@@ -404,6 +403,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
+        if(valorTemporario.isEmpty() && termos <= 1){
+                limparTudo();
+                inserirNoValorTemporario("", true);
+                TVOperacoes.setText(tempOperacao);
+        }
+
+
+        TVOperacoes.setText(tempOperacao);
 
         //if(termos <= 1) limparResultado();
     }

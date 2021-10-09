@@ -1,4 +1,4 @@
-package TesteCalculadora;
+package BaseCalculadora;
 import java.util.ArrayList;
 
 public class Calculadora{

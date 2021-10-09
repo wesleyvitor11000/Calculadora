@@ -20,6 +20,8 @@
             @drawable/flat_white_button
         </item>
 
+        <item name="fontFamily">@font/worksans_light</item>
+
         <item name="android:textSize">
             40sp
         </item>
@@ -32,19 +34,19 @@
 
     <style name="TextoNormal" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">36sp</item>
-        <item name="android:textStyle">normal</item>
-        <item name="fontFamily">@font/ws</item>
+        <item name="fontFamily">@font/worksans_regular</item>
         <item name="android:textColor">@color/blue</item>
     </style>
 
-    <style name="TextoNegrito" parent="TextoNormal">
-        <item name="android:textStyle">bold</item>
+    <style name="TextoNegrito" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/worksans_semibold</item>
+        <item name="android:textColor">@color/blue</item>
         <item name="android:textSize">52sp</item>
     </style>
 
     <style name="BlueButton" parent="Widget.AppCompat.Button"
         >
-        <item name="fontFamily">@font/ws</item>
+        <item name="fontFamily">@font/worksans_light</item>
         <item name="android:background">
             @drawable/flat_blue_button
         </item>
@@ -68,6 +70,8 @@
         <item name="android:background">
             @drawable/flat_green_button
         </item>
+
+        <item name="fontFamily">@font/worksans_light</item>
 
         <item name="android:textSize">
             40sp
