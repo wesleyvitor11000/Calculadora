@@ -17,7 +17,7 @@
     <style name="WhiteButton" parent="Widget.AppCompat.Button"
         >
         <item name="android:background" >
-            @drawable/flat_white_button
+            @drawable/btn_selector_white
         </item>
 
         <item name="fontFamily">@font/worksans_light</item>
@@ -44,11 +44,10 @@
         <item name="android:textSize">52sp</item>
     </style>
 
-    <style name="BlueButton" parent="Widget.AppCompat.Button"
-        >
+    <style name="BlueButton" parent="Widget.AppCompat.Button">
         <item name="fontFamily">@font/worksans_light</item>
         <item name="android:background">
-            @drawable/flat_blue_button
+            @drawable/btn_selector_blue
         </item>
 
         <item name="android:textSize">
@@ -68,7 +67,7 @@
     <style name="GreenButton" parent="Widget.AppCompat.Button">
 
         <item name="android:background">
-            @drawable/flat_green_button
+            @drawable/btn_selector_green
         </item>
 
         <item name="fontFamily">@font/worksans_light</item>

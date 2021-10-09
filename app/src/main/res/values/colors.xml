@@ -8,4 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#416AA7</color>
+    <color name="green">#24AB6A</color>
+
+    <color name="colorTransparent">#00000000</color>
+    <color name="colorRippleGray">#E3E3E3</color>
+    <color name="colorRippleBlue">#253C5E</color>
+    <color name="colorRippleGreen">#176841</color>
 </resources>
