@@ -231,9 +231,18 @@ public class MainActivity extends AppCompatActivity {
                 deleteCaractere(false);
             }
         }else{
-            if(Float.parseFloat(valorTemporario) == 0 && !caractere.equals(".") && !valorTemporario.contains(".") && num){
-                 deleteCaractere(false);
+            try{
+                float temp = Float.parseFloat(valorTemporario);
+
+                if(temp == 0 && !caractere.equals(".") && !valorTemporario.contains(".") && num){
+                    deleteCaractere(false);
+                }
+
+            }catch(NumberFormatException e){
+
             }
+
+
         }
 
         boolean newTemp = false;
@@ -366,12 +375,12 @@ public class MainActivity extends AppCompatActivity {
                 valorTemporario = "";
             }
 
-
-
             if(tempOperacao.isEmpty()){return;}
 
             tempOperacao = tempOperacao.substring(0, tempOperacao.length()-1);
             TVOperacoes.setText(tempOperacao);
+
+            if(termos > 1){ atualizarResultado();}
 
         }else {
             System.out.println("DELETE TIPO 2");
