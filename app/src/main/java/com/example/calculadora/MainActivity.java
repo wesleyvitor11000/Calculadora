@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity {
         String resultadoText = "";
         try {
             resultadoText = String.valueOf(calculadora.calcularResultado());
-        }catch(Exception e){
+        }catch(ArithmeticException e){
             TVResultado.setText("Erro");
             return "";
         }

@@ -105,8 +105,10 @@ public class Calculadora{
 
                 case 3:
                     int length = tempRes.size();
-                    tempRes.set(length-1, tempRes.get(length-1)*op.valor);
 
+                    if(!tempRes.isEmpty()){
+                        tempRes.set(length-1, tempRes.get(length-1)*op.valor);
+                    }
                     break;
 
                 case 4:
@@ -114,9 +116,10 @@ public class Calculadora{
                         throw new ArithmeticException();
                     }
 
-                    int length2 = tempRes.size();
-                    tempRes.set(length2-1, tempRes.get(length2-1)/op.valor);
-
+                    if(!tempRes.isEmpty()){
+                        int length2 = tempRes.size();
+                        tempRes.set(length2-1, tempRes.get(length2-1)/op.valor);
+                    }
                     break;
             }
 
