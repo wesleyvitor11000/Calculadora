@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (!valorTemporario.isEmpty() && !valorTemporario.contains(".")) {
                     inserirCaractereOperacao(".", true);
-                } //trocar por ,*************
+                } //trocar por ,*****
             }
         });
 
@@ -194,7 +194,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String tempResult = limparTudo();
-                inserirCaractereOperacao(tempResult, true);
+                float tempResultF = Float.parseFloat(tempResult);
+                int tempResultI = (int)tempResultF;
+                boolean inteiro = false;
+
+                if(tempResultF-tempResultI == 0){
+                    inteiro = true;
+                }
+
+                if(tempResultF > 0){
+                    if(inteiro){
+                        inserirCaractereOperacao(String.valueOf(tempResultI), true);
+                    }else{
+                        inserirCaractereOperacao(tempResult, true);
+                    }
+                }else{
+                    ultimoOperador = 2;
+                    inserirCaractereOperacao("-", false);
+                    termos++;
+                    limparValorTemporario();
+
+                    tempResultF *= -1;
+                    tempResultI *= -1;
+
+                    tempResult = inteiro ? String.valueOf(tempResultI) : String.valueOf(tempResultF);
+
+                    inserirCaractereOperacao(tempResult, true);
+                }
+
             }
         });
 
@@ -227,8 +254,16 @@ public class MainActivity extends AppCompatActivity {
         System.out.println("INSERINDO CARACTERE (CARACTERE = " + caractere + " numero?: " + num);
 
         if(valorTemporario.isEmpty()){
-            if(valorTemporario.isEmpty() && !num){
-                deleteCaractere(false);
+            if(!num){
+                if(termos > 1){
+                    deleteCaractere(false);
+                }else{
+                    //************//
+                    limparTudo();
+                    inserirNoValorTemporario("", true);
+                    TVOperacoes.setText(tempOperacao);
+                    //************//
+                }
             }
         }else{
             try{
@@ -238,11 +273,7 @@ public class MainActivity extends AppCompatActivity {
                     deleteCaractere(false);
                 }
 
-            }catch(NumberFormatException e){
-
-            }
-
-
+            }catch(NumberFormatException e){}
         }
 
         boolean newTemp = false;
@@ -252,15 +283,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         System.out.println("TERMOS  ===== " + termos + "    VALOR É NULO? === " + valorTemporario.isEmpty() + " VALOR ===" + valorTemporario);
-
-        if(!num && termos<=1 && valorTemporario.isEmpty()){
-            System.out.println("ENTROU NA PRIMEIRA COMPARAÇÃO");
-            if(!caractere.equals("-")) {
-                System.out.println("N É sinal de menos");
-                ultimoOperador = 1;
-                return;///ultima alteracao
-            }
-        }
 
         if(num){
             inserirNoValorTemporario(caractere, newTemp);
@@ -352,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
 
             termos--;
 
-          //  boolean nuloValido = false;
+            //  boolean nuloValido = false;
 
             float ultimoValor = calculadora.getUltimoValor();
             int ultimoValorInt = (int)ultimoValor;
@@ -413,9 +435,10 @@ public class MainActivity extends AppCompatActivity {
 
         }
         System.out.println("TEMPORARIO NULO = " + valorTemporario.isEmpty());
+
         if(valorTemporario.isEmpty() && termos <= 1 && recolocarZero){
-                limparTudo();
-                inserirNoValorTemporario("", true);
+            limparTudo();
+            inserirNoValorTemporario("", true);
         }
 
 
