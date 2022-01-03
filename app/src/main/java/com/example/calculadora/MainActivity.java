@@ -193,6 +193,13 @@ public class MainActivity extends AppCompatActivity {
         eqlB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                try{
+                    Float.parseFloat(TVResultado.getText().toString());
+                }catch(Exception e){
+                    return;
+                }
+                
                 String tempResult = limparTudo();
                 float tempResultF = Float.parseFloat(tempResult);
                 int tempResultI = (int)tempResultF;
